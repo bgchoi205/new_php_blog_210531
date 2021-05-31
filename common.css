@@ -1,0 +1,22 @@
+div{
+  font-size: 18px;
+  color: green ;
+}
+
+table{
+  border: 2px solid gray ;
+  border-collapse: collapse;
+  text-align: center;
+  width:500px;
+}
+
+th, tr, td{
+  border: 2px solid gray ;
+}
+
+textarea{
+  width:500px;
+  height:100px;
+  resize:none;
+}
+
