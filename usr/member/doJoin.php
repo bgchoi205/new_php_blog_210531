@@ -50,7 +50,8 @@ loginId = '$loginId',
 loginPw = '$loginPw',
 `name` = '$name',
 nickName = '$nickName',
-email = '$email'
+email = '$email',
+delStatus = 0
 ";
 
 mysqli_query($dbConn, $sql);

@@ -2,6 +2,10 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webInit.php';
 
+if( !isset($_SESSION['loginedMemberId']) ){
+  jsHistoryBackExit("로그인 후 이용해주세요.");
+}
+
 $memberId = $_SESSION['loginedMemberId'];
 
 $sqlMember = "

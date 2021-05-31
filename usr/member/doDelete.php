@@ -2,6 +2,14 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webInit.php';
 
+if( !isset($_SESSION['loginedMemberId']) ){
+  jsHistoryBackExit("로그인 후 이용해주세요.");
+}
+
+if( !isset( $_GET['id'] ) ) {
+  jsHistoryBackExit("id를 입력해주세요.");
+}
+
 if( !isset( $_GET['loginId'] ) ) {
   jsHistoryBackExit("아이디를 입력해주세요.");
 }
@@ -10,14 +18,18 @@ if( !isset( $_GET['loginPw'] ) ) {
   jsHistoryBackExit("비밀번호를 입력해주세요.");
 }
 
+$id = intval($_GET['id']);
+
 $loginId = $_GET['loginId'];
 
 $loginPw = $_GET['loginPw'];
 
+
 $sql = "
 SELECT *
 FROM `member` AS M
-WHERE M.loginId = '$loginId'
+WHERE M.id = '$id'
+AND M.loginId = '$loginId'
 AND M.loginPw = '$loginPw'
 ";
 
@@ -29,15 +41,18 @@ if( empty($member) ){
   jsHistoryBackExit("아이디 혹은 비밀번호가 틀립니다. 다시 확인해주세요.");
 }
 
-if( $member['delStatus'] == 1 ){
-  jsHistoryBackExit("탈퇴한 회원입니다.");
-}
+$sqlDel = "
+UPDATE `member`
+SET delStatus = '1'
+";
 
-$_SESSION['loginedMemberId'] = $member['id'];
+mysqli_query($dbConn, $sqlDel);
+
+session_unset();
 
 $url = "../article/list.php";
 
-$msg = "${member['nickName']} 님 환영합니다.";
+$msg = "탈퇴 완료";
 
 jsLocationReplaceExit($url, $msg);
 
@@ -45,7 +60,7 @@ jsLocationReplaceExit($url, $msg);
 
 <?php
 
-$pageTitle = "로그인";
+$pageTitle = "회원탈퇴";
 
 ?>
 

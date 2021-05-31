@@ -32,7 +32,8 @@ $pageTitle = "회원정보";
 
 
 <?php require_once __DIR__ . "/../head.php"; ?>
-
+  <span><a href="../member/delete.php">회원탈퇴</a></span>
+  <hr>
   <span><a href="../article/list.php">리스트</a></span>
   <hr>
 
