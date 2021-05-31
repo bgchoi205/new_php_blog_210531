@@ -24,3 +24,6 @@ textarea{
   resize:none;
 }
 
+.replyWriter{
+  font-weight:bold;
+}

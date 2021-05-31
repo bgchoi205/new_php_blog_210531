@@ -38,6 +38,35 @@ $rsMember = mysqli_query($dbConn, $sqlMember);
 
 $member = mysqli_fetch_assoc($rsMember);
 
+
+$sqlReply = "
+SELECT *
+FROM reply AS R
+WHERE R.articleId = '${article['id']}'
+ORDER BY R.id DESC
+";
+
+$rsReply = mysqli_query($dbConn, $sqlReply);
+
+$replies = [];
+
+while($reply = mysqli_fetch_assoc($rsReply)){
+  $replies[] = $reply;
+}
+
+$loginedMemberId = $_SESSION['loginedMemberId'];
+
+$sqlLogined = "
+SELECT *
+FROM `member` AS M
+WHERE M.id = '$loginedMemberId'
+";
+
+$rsLogined = mysqli_query($dbConn, $sqlLogined);
+
+$loginedMember = mysqli_fetch_assoc($rsLogined);
+
+
 ?>
 
 <?php
@@ -82,6 +111,35 @@ $pageTitle = "게시물 상세, $id 번 게시물";
     내용 : <?=$article['body']?>
   </div>
   <hr>
+  <div>
+    <span>댓글쓰기</span><br>
+    <form action="../reply/doWrite.php">
+      <input type="hidden" name="articleId" value="<?=$article['id']?>">
+      <input type="hidden" name="memberId" value="<?=$loginedMember['id']?>">
+      <textarea placeholder="댓글을 써주세요." name="body"></textarea>
+      <input type="submit" value="등록">
+    </form>
+  </div>
+  <h2>댓글 목록</h2>
+  <hr>
+  <?php foreach($replies as $reply) {?>
+    <?php
+      $sqlWriter = "
+      SELECT *
+      FROM `member` AS M
+      WHERE M.id = ${reply['memberId']}
+      ";
+
+      $rsWriter = mysqli_query($dbConn, $sqlWriter);
+
+      $writer = mysqli_fetch_assoc($rsWriter);
+    ?>
+    <span class="replyWriter"><?=$writer['nickName']?></span> &ensp;
+    <?=$reply['regDate']?><br>
+    <br>
+    <?=$reply['body']?>
+    <hr>
+  <?php }?>  
 
 
 <?php require_once __DIR__ . "/../foot.php"; ?>
