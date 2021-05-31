@@ -14,6 +14,10 @@ th, tr, td{
   border: 2px solid gray ;
 }
 
+th{
+  background-color: gray;
+}
+
 textarea{
   width:500px;
   height:100px;

@@ -39,27 +39,31 @@ $pageTitle = "회원정보";
 
   <table>
     <tr>
-      <td>아이디</td>
+      <th>아이디</th>
       <td><?=$member['loginId']?></td>
     </tr>
     <tr>
-      <td>가입</td>
+      <th>가입</th>
       <td><?=$member['regDate']?></td>
     </tr>
     <tr>
-      <td>수정</td>
+      <th>수정</th>
       <td><?=$member['updateDate']?></td>
+    </tr>
+    <tr>
+      <th>이름</th>
+      <td><?=$member['name']?></td>
+    </tr>
+    <tr>
+      <th>닉네임</th>
+      <td><?=$member['nickName']?></td>
+    </tr>
+    <tr>
+      <th>이메일</th>
+      <td><?=$member['email']?></td>
     </tr>
   </table>
 
-  <div>
-    아이디 : <?=$member['loginId']?><br>
-    등록 : <?=$member['regDate']?><br>
-    수정 : <?=$member['updateDate']?><br>
-    이름 : <?=$member['name']?><br>
-    닉네임 : <?=$member['nickName']?><br>
-    이메일 : <?=$member['email']?>
-  </div>
   <hr>
   <span><a href="modify.php?memberId=<?=$member['id']?>">정보수정</a></span>
 
