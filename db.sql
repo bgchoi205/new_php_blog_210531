@@ -42,6 +42,7 @@ title = '제목3',
 SELECT LAST_INSERT_ID();
 
 # member table 생성
+
 CREATE TABLE `member`(
   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   regDate DATETIME NOT NULL,
@@ -50,7 +51,8 @@ CREATE TABLE `member`(
   loginPw VARCHAR(100) NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   nickName VARCHAR(20) NOT NULL,
-  email VARCHAR(100) NOT NULL
+  email VARCHAR(100) NOT NULL,
+  delStatus BOOLEAN NOT NULL
 );
 
 
@@ -62,7 +64,8 @@ loginId = 'admin1',
 loginPw = 'admin1',
 `name` = '철수',
 nickName = '파이리',
-email = 'fire@abc.com';
+email = 'fire@abc.com',
+delStatus = 0;
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -71,7 +74,8 @@ loginId = 'user1',
 loginPw = 'user1',
 `name` = '영희',
 nickName = '꼬부기',
-email = 'water@abc.com';
+email = 'water@abc.com',
+delStatus = FALSE;
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -80,8 +84,18 @@ loginId = 'user2',
 loginPw = 'user2',
 `name` = '길동',
 nickName = '이상이상',
-email = 'green@abc.com';
+email = 'green@abc.com',
+delStatus = 0;
 
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'user3',
+loginPw = 'user3',
+`name` = '희동',
+nickName = '구구',
+email = 'gugu@abc.com',
+delStatus = 0;
 
 # board table 생성
 CREATE TABLE board(
@@ -111,5 +125,37 @@ updateDate = NOW(),
 `name` = 'QnA',
 `code` = 'qna';
 
+
+# reply table 생성
+CREATE TABLE reply(
+  id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  regDate DATETIME NOT NULL,
+  updateDate DATETIME NOT NULL,
+  articleId INT(10) UNSIGNED NOT NULL,
+  memberId INT(10) UNSIGNED NOT NULL,
+  `body` TEXT NOT NULL
+);
+
+# test reply 생성
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+articleId = 1,
+memberId = 2,
+`body` = '가라 피카츄 너로 정했다';
+
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+articleId = 2,
+memberId = 3,
+`body` = '덩쿨채찍 찰싹찰싹';
+
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+articleId = 2,
+memberId = 4,
+`body` = '구구구구구구구구';
 
 

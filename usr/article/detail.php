@@ -135,7 +135,10 @@ $pageTitle = "게시물 상세, $id 번 게시물";
       $writer = mysqli_fetch_assoc($rsWriter);
     ?>
     <span class="replyWriter"><?=$writer['nickName']?></span> &ensp;
-    <?=$reply['regDate']?><br>
+    <?=$reply['regDate']?> &ensp;
+    <span><a href="../reply/doDelete.php?id=<?=$reply['id']?>">삭제</a></span> &ensp;
+    <span><a href="../reply/modify.php?id=<?=$reply['id']?>">수정</a></span>
+    <br>
     <br>
     <?=$reply['body']?>
     <hr>
