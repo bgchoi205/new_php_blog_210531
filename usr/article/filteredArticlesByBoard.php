@@ -24,21 +24,35 @@ while($article = mysqli_fetch_assoc($rs)){
   $articles[] = $article;
 }
 
-$sqlBoard = "
+$sqlBoardById = "
 SELECT *
 FROM board AS B
 WHERE B.id = '$boardId'
 ";
 
-$rsBoard = mysqli_query($dbConn, $sqlBoard);
+$rsBoardById = mysqli_query($dbConn, $sqlBoardById);
 
-$board = mysqli_fetch_assoc($rsBoard);
+$boardById = mysqli_fetch_assoc($rsBoardById);
+
+$sqlBoard2 = "
+SELECT *
+FROM board AS B
+ORDER BY B.id DESC
+";
+
+$rsBoard2 = mysqli_query($dbConn, $sqlBoard2);
+
+$boards = [];
+
+while($board2 = mysqli_fetch_assoc($rsBoard2)){
+  $boards[] = $board2;
+}
 
 ?>
 
 <?php
 
-$pageTitle = "${board['name']} 게시판";
+$pageTitle = "${boardById['name']} 게시판";
 
 ?>
 
@@ -46,13 +60,25 @@ $pageTitle = "${board['name']} 게시판";
   <span><a href="list.php">리스트</a></span>
   <span><a href="write.php">글쓰기</a></span>
   <hr>
+  <form action="../article/filteredArticlesByBoard.php">
+    <span>게시판 목록 : </span>
+    <select name="boardId">
+      <?php foreach($boards as $board) {?>
+        <option value="<?=$board['id']?>">
+          <?=$board['id']?>.<?=$board['name']?>
+        </option>
+      <?php }?>
+    </select>
+    <input type="submit" value="이동">
+  </form>
+  <hr>
 
   <?php foreach($articles as $article) {?>
 
     <div>
       <a href="detail.php?id=<?=$article['id']?>">번호 : <?=$article['id']?></a>&ensp;
       등록 : <?=$article['regDate']?><br>
-      게시판 : <?=$board['name']?><br>
+      게시판 : <?=$boardById['name']?><br>
       <a href="detail.php?id=<?=$article['id']?>">제목 : <?=$article['title']?></a>
       <hr>
     </div>

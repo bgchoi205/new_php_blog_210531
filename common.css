@@ -10,12 +10,14 @@ table{
   width:500px;
 }
 
-th, tr, td{
+tr, td{
   border: 2px solid gray ;
 }
 
 th{
   background-color: gray;
+  color:white;
+  border:2px solid white;
 }
 
 textarea{
