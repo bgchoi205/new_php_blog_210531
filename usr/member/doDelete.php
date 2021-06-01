@@ -44,6 +44,7 @@ if( empty($member) ){
 $sqlDel = "
 UPDATE `member`
 SET delStatus = '1'
+WHERE id = '$id'
 ";
 
 mysqli_query($dbConn, $sqlDel);
