@@ -14,9 +14,7 @@ FROM article AS A
 WHERE A.id = '$id'
 ";
 
-$rs = mysqli_query($dbConn, $sql);
-
-$article = mysqli_fetch_assoc($rs);
+$article = DB__getRow($sql);
 
 $sqlBoard = "
 SELECT *
@@ -24,9 +22,7 @@ FROM board AS B
 WHERE B.id = '${article['boardId']}'
 ";
 
-$rsBoard = mysqli_query($dbConn, $sqlBoard);
-
-$board = mysqli_fetch_assoc($rsBoard);
+$board = DB__getRow($sqlBoard);
 
 $sqlMember = "
 SELECT *
@@ -34,25 +30,18 @@ FROM `member` AS M
 WHERE M.id = '${article['memberId']}'
 ";
 
-$rsMember = mysqli_query($dbConn, $sqlMember);
-
-$member = mysqli_fetch_assoc($rsMember);
+$member = DB__getRow($sqlMember);
 
 
-$sqlReply = "
+$sqlReplies = "
 SELECT *
 FROM reply AS R
 WHERE R.articleId = '${article['id']}'
 ORDER BY R.id DESC
 ";
 
-$rsReply = mysqli_query($dbConn, $sqlReply);
+$replies = DB__getRows($sqlReplies);
 
-$replies = [];
-
-while($reply = mysqli_fetch_assoc($rsReply)){
-  $replies[] = $reply;
-}
 
 $loginedMemberId = $_SESSION['loginedMemberId'];
 
@@ -62,9 +51,7 @@ FROM `member` AS M
 WHERE M.id = '$loginedMemberId'
 ";
 
-$rsLogined = mysqli_query($dbConn, $sqlLogined);
-
-$loginedMember = mysqli_fetch_assoc($rsLogined);
+$loginedMember = DB__getRow($sqlLogined);
 
 
 ?>

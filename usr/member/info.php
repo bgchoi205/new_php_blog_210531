@@ -18,9 +18,7 @@ FROM `member` AS M
 WHERE M.id = '$memberId'
 ";
 
-$rsMember = mysqli_query($dbConn, $sqlMember);
-
-$member = mysqli_fetch_assoc($rsMember);
+$member = DB__getRow($sqlMember);
 
 ?>
 

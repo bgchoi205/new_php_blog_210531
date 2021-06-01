@@ -33,9 +33,9 @@ AND M.loginId = '$loginId'
 AND M.loginPw = '$loginPw'
 ";
 
-$rs = mysqli_query($dbConn, $sql);
 
-$member = mysqli_fetch_assoc($rs);
+
+$member = DB__getRow($sql);
 
 if( empty($member) ){
   jsHistoryBackExit("아이디 혹은 비밀번호가 틀립니다. 다시 확인해주세요.");

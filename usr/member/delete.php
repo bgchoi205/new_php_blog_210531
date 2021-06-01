@@ -8,15 +8,14 @@ if( !isset($_SESSION['loginedMemberId']) ){
 
 $memberId = $_SESSION['loginedMemberId'];
 
-$sqlMember = "
+$sql = "
 SELECT *
 FROM `member` AS M
 WHERE M.id = '$memberId'
 ";
 
-$rsMember = mysqli_query($dbConn, $sqlMember);
 
-$member = mysqli_fetch_assoc($rsMember);
+$member = DB__getRow($sql);
 
 ?>
 

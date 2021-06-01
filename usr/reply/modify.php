@@ -18,9 +18,7 @@ FROM reply AS R
 WHERE R.id = '$id'
 ";
 
-$rsReply = mysqli_query($dbConn, $sqlReply);
-
-$reply = mysqli_fetch_assoc($rsReply);
+$reply = DB__getRow($sqlReply);
 
 $memberId = $_SESSION['loginedMemberId'];
 

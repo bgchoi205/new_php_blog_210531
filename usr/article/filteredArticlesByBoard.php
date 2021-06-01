@@ -16,13 +16,8 @@ WHERE A.boardId = '$boardId'
 ORDER BY A.id DESC
 ";
 
-$rs = mysqli_query($dbConn, $sql);
+$articles = DB__getRows($sql);
 
-$articles = [];
-
-while($article = mysqli_fetch_assoc($rs)){
-  $articles[] = $article;
-}
 
 $sqlBoardById = "
 SELECT *
@@ -30,9 +25,7 @@ FROM board AS B
 WHERE B.id = '$boardId'
 ";
 
-$rsBoardById = mysqli_query($dbConn, $sqlBoardById);
-
-$boardById = mysqli_fetch_assoc($rsBoardById);
+$boardById = DB__getRow($sqlBoardById);
 
 $sqlBoard2 = "
 SELECT *
@@ -40,13 +33,8 @@ FROM board AS B
 ORDER BY B.id DESC
 ";
 
-$rsBoard2 = mysqli_query($dbConn, $sqlBoard2);
+$boards = DB__getRows($sqlBoard2);
 
-$boards = [];
-
-while($board2 = mysqli_fetch_assoc($rsBoard2)){
-  $boards[] = $board2;
-}
 
 ?>
 

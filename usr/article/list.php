@@ -8,13 +8,8 @@ FROM article AS A
 ORDER BY A.id DESC
 ";
 
-$rs = mysqli_query($dbConn, $sql);
+$articles = DB__getRows($sql);
 
-$articles = [];
-
-while($article = mysqli_fetch_assoc($rs)){
-  $articles[] = $article;
-}
 
 $sqlBoard2 = "
 SELECT *
@@ -22,13 +17,7 @@ FROM board AS B
 ORDER BY B.id DESC
 ";
 
-$rsBoard2 = mysqli_query($dbConn, $sqlBoard2);
-
-$boards = [];
-
-while($board2 = mysqli_fetch_assoc($rsBoard2)){
-  $boards[] = $board2;
-}
+$boards = DB__getRows($sqlBoard2);
 
 ?>
 
@@ -64,9 +53,7 @@ $pageTitle = "전체 게시물 리스트";
       WHERE B.id = '${article['boardId']}'
       ";
 
-      $rsBoard = mysqli_query($dbConn, $sqlBoard);
-
-      $board = mysqli_fetch_assoc($rsBoard);
+      $board = DB__getRow($sqlBoard);
       
     ?>
 

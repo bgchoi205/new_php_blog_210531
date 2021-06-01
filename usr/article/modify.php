@@ -19,9 +19,7 @@ FROM article AS A
 WHERE A.id = '$id'
 ";
 
-$rs = mysqli_query($dbConn, $sql);
-
-$article = mysqli_fetch_assoc($rs);
+$article = DB__getRow($sql);
 
 $memberId = $_SESSION['loginedMemberId'];
 

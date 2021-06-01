@@ -14,13 +14,8 @@ FROM board AS B
 ORDER BY B.id DESC
 ";
 
-$rsBoard2 = mysqli_query($dbConn, $sqlBoard2);
+$boards = DB__getRows($sqlBoard2);
 
-$boards = [];
-
-while($board2 = mysqli_fetch_assoc($rsBoard2)){
-  $boards[] = $board2;
-}
 
 ?>
 

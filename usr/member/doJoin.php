@@ -34,9 +34,7 @@ FROM `member` AS M
 WHERE M.loginId = '${loginId}'
 ";
 
-$rsMember = mysqli_query($dbConn, $sqlMember);
-
-$member = mysqli_fetch_assoc($rsMember);
+$member = DB__getRow($sqlMember);
 
 if( !empty($member) ){
   jsHistoryBackExit("사용중인 아이디입니다.");
@@ -49,9 +47,7 @@ WHERE M.name = '${name}'
 AND M.email = '${email}'
 ";
 
-$rsMemberByNameEmail = mysqli_query($dbConn, $sqlMemberByNameEmail);
-
-$memberByNameEmail = mysqli_fetch_assoc($rsMemberByNameEmail);
+$memberByNameEmail = DB__getRow($sqlMemberByNameEmail);
 
 if( !empty($memberByNameEmail) ){
   jsHistoryBackExit("이미 등록된 회원입니다.");
