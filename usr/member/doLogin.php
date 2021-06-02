@@ -13,21 +13,28 @@ if( !isset( $_GET['loginPw'] ) ) {
 $loginId = $_GET['loginId'];
 $loginPw = $_GET['loginPw'];
 
-// $sql = DB__secSql();
-// $sql.add("SELECT *");
-// $sql.add("FROM `member` AS M");
-// $sql.add("WHERE M.loginId = ?", $loginId);
-// $sql.add("AND M.loginPw = ?", $loginPw);
+// $sql = "
+// SELECT *
+// FROM `member` AS M
+// WHERE M.loginId = ?
+// AND M.loginPw = ?
+// ";
 
-$sql = "
-SELECT *
-FROM `member` AS M
-WHERE M.loginId = '$loginId'
-AND M.loginPw = '$loginPw'
-";
+// $stmt = $dbConn->prepare($sql);
+// $stmt -> bind_param("ss", $loginId, $loginPw);
+// $stmt -> execute();
+// $rs = $stmt->get_result();
+// $member = $rs->fetch_assoc();
+// print_r($member);
+// exit;
 
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM `member` AS M");
+$sql->add("WHERE M.loginId = ?", $loginId);
+$sql->add("AND M.loginPw = ?", $loginPw);
 
-$member = DB__getRow($sql);
+$member = DB__getRow2($sql);
 
 if( empty($member) ){
   jsHistoryBackExit("아이디 혹은 비밀번호가 틀립니다. 다시 확인해주세요.");
