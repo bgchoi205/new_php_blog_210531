@@ -22,7 +22,30 @@ $pageTitle = "회원가입";
   <form action="doJoin.php">
     <div>
       <span>사용할 아이디 입력</span><br>
-      <input required placeholder="아이디 입력" type="text" name="loginId">
+      <input required placeholder="아이디 입력" type="text" name="loginId" id="loginId">
+      <input type="button" id="btn_check_id" value="중복확인">
+      <span class="double_result">(아이디는 영문,숫자)</span>
+      <script type="text/javascript">
+      $(document).ready(function(){
+        $("#btn_check_id").click(function(){
+          $.ajax({
+            url : 'join_double.php?loginId='+$(#loginId).val(),
+            type:'post',
+            dataType:'text',
+            success:function(data){
+              $(.double_result).html(data);
+            },
+            error:function(xhr,textStatus,errorThrown){
+              $('.double_result').html('ERROR');
+            }
+
+          });
+
+        });
+      
+      });
+
+      </script>
     </div>
     <div>
       <span>사용할 비밀번호 입력</span><br>

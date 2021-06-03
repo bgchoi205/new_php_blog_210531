@@ -99,6 +99,10 @@ $pageTitle = "게시물 상세, $id 번 게시물";
   </div>
   <hr>
   <div>
+    좋아요
+  </div>
+  <hr>
+  <div>
     <span>댓글쓰기</span><br>
     <form action="../reply/doWrite.php">
       <input type="hidden" name="articleId" value="<?=$article['id']?>">
