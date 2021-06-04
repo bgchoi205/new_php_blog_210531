@@ -50,7 +50,7 @@ ul,li{
 }
 
 .top-bar > .pageTitle{
-  width:300px;
+  width:500px;
   color:white;
   font-size:2rem;
   position:absolute;
@@ -91,4 +91,8 @@ textarea{
 
 .list-title{
   text-decoration:underline;
+}
+
+.heart-icon{
+  color:red;
 }

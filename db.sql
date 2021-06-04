@@ -12,7 +12,9 @@ CREATE TABLE article(
   updateDate DATETIME NOT NULL,
   title VARCHAR(20) NOT NULL,
   `body` TEXT NOT NULL
+  hit INT(10) UNSIGNED NOT NULL
 );
+
 
 # test article 생성
 INSERT INTO article
@@ -21,7 +23,8 @@ boardId = 2,
 regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
-`body` = '피카츄라이츄파이리꼬부기';
+`body` = '피카츄라이츄파이리꼬부기',
+hit = 0;
 
 INSERT INTO article
 SET memberId = 3,
@@ -29,7 +32,8 @@ boardId = 2,
 regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
-`body` = '버터플야도란피죤투또가스';
+`body` = '버터플야도란피죤투또가스',
+hit = 0;
 
 INSERT INTO article
 SET memberId = 4,
@@ -37,7 +41,8 @@ boardId = 3,
 regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
-`body` = '서로 생긴 모습은 달라도';
+`body` = '서로 생긴 모습은 달라도',
+hit = 0;
 
 SELECT LAST_INSERT_ID();
 
@@ -52,7 +57,7 @@ CREATE TABLE `member`(
   `name` VARCHAR(20) NOT NULL,
   nickName VARCHAR(20) NOT NULL,
   email VARCHAR(100) NOT NULL,
-  delStatus BOOLEAN NOT NULL
+  delStatus boolean not null
 );
 
 
@@ -75,7 +80,7 @@ loginPw = 'user1',
 `name` = '영희',
 nickName = '꼬부기',
 email = 'water@abc.com',
-delStatus = FALSE;
+delStatus = false;
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -96,6 +101,7 @@ loginPw = 'user3',
 nickName = '구구',
 email = 'gugu@abc.com',
 delStatus = 0;
+
 
 # board table 생성
 CREATE TABLE board(
@@ -127,19 +133,19 @@ updateDate = NOW(),
 
 
 # reply table 생성
-CREATE TABLE reply(
-  id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+create table reply(
+  id int(10) unsigned not null primary key auto_increment,
   regDate DATETIME NOT NULL,
   updateDate DATETIME NOT NULL,
-  articleId INT(10) UNSIGNED NOT NULL,
+  articleId int(10) unsigned not null,
   memberId INT(10) UNSIGNED NOT NULL,
-  `body` TEXT NOT NULL
+  `body` text not null
 );
 
 # test reply 생성
-INSERT INTO reply
-SET regDate = NOW(),
-updateDate = NOW(),
+insert into reply
+set regDate = now(),
+updateDate = now(),
 articleId = 1,
 memberId = 2,
 `body` = '가라 피카츄 너로 정했다';

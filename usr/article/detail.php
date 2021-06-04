@@ -56,6 +56,13 @@ WHERE M.id = '$loginedMemberId'
 
 $loginedMember = DB__getRow($sqlLogined);
 
+$sqlIncreaseHit = "
+UPDATE article
+SET hit = hit + 1
+WHERE id = '$id'
+";
+
+mysqli_query($dbConn, $sqlIncreaseHit);
 
 ?>
 
@@ -101,9 +108,8 @@ $pageTitle = "게시물 상세, $id 번 게시물";
     내용 : <?=$article['body']?>
   </div>
   <hr>
-  <div>
-    좋아요
-  </div>
+  <span><i class="far fa-heart heart-icon"></i>좋아요</span>&ensp;&ensp;
+  <span>조회수 : <?=$article['hit']?></span>
   <hr>
   <div>
     <span>댓글쓰기</span><br>

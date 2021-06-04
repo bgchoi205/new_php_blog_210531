@@ -7,6 +7,7 @@
   <title><?=$pageTitle?></title>
   <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
   <link rel="stylesheet" href="/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
   <div class="top-bar con">
