@@ -29,11 +29,11 @@ $pageTitle = "회원가입";
       $(document).ready(function(){
         $("#btn_check_id").click(function(){
           $.ajax({
-            url : 'join_double.php?loginId='+$(#loginId).val(),
+            url : './joinDouble.php?loginId='+$('#loginId').val(),
             type:'post',
             dataType:'text',
             success:function(data){
-              $(.double_result).html(data);
+              $('.double_result').html(data);
             },
             error:function(xhr,textStatus,errorThrown){
               $('.double_result').html('ERROR');

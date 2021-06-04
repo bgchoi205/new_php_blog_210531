@@ -8,7 +8,11 @@
   <link rel="stylesheet" href="/common.css">
 </head>
 <body>
-  <h1><?=$pageTitle?></h1>
+  <div class="top-bar con">
+    <div class="pageTitle">
+      <?=$pageTitle?>
+    </div>
+  </div>
   <hr>
   
   <?php if( isset($_SESSION['loginedMemberId']) ){ ?>

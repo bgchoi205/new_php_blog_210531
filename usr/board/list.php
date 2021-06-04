@@ -16,7 +16,8 @@ $boards = DB__getRows($sql);
 
 <?php require_once __DIR__ . "/../head.php"; ?>
 
-  <span><a href="write.php">글쓰기</a></span>
+  <span><a href="../article/write.php">글쓰기</a></span>&ensp;
+  <span><a href="../article/list.php">리스트</a></span>
   <hr>
   <form action="../article/filteredArticlesByBoard.php">
     <span>게시판 목록 : </span>

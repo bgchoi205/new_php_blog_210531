@@ -42,6 +42,9 @@ ORDER BY R.id DESC
 
 $replies = DB__getRows($sqlReplies);
 
+if( !isset($_SESSION['loginedMemberId']) ){
+  $_SESSION['loginedMemberId'] = null;
+}
 
 $loginedMemberId = $_SESSION['loginedMemberId'];
 
