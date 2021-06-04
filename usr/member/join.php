@@ -29,7 +29,7 @@ $pageTitle = "회원가입";
       $(document).ready(function(){
         $("#btn_check_id").click(function(){
           $.ajax({
-            url : './joinDouble.php?loginId='+$('#loginId').val(),
+            url : 'joinDouble.php?loginId='+$('#loginId').val(),
             type:'post',
             dataType:'text',
             success:function(data){

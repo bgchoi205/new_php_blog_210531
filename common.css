@@ -41,15 +41,22 @@ ul,li{
 /* 스타일 */
 
 .top-bar{
-  height:100px;
-  background-color:black;
+  margin-top:10px;
+  height:60px;
+  background-color:darkgray;
   text-align:center;
-  line-height:100px;
+  line-height:60px;
+  position:relative;
 }
 
 .top-bar > .pageTitle{
+  width:300px;
   color:white;
-  font-size:3rem;
+  font-size:2rem;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
 }
 
 table{
@@ -80,4 +87,8 @@ textarea{
 
 .replyWriter{
   font-weight:bold;
+}
+
+.list-title{
+  text-decoration:underline;
 }
