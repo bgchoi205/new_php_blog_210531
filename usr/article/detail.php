@@ -8,37 +8,35 @@ if( !isset( $_GET['id'] ) ) {
 
 $id = intval($_GET['id']);
 
-$sql = "
-SELECT *
-FROM article AS A
-WHERE A.id = '$id'
-";
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM article AS A");
+$sql->add("WHERE A.id = ?", $id);
 
 $article = DB__getRow($sql);
 
-$sqlBoard = "
-SELECT *
-FROM board AS B
-WHERE B.id = '${article['boardId']}'
-";
+
+$sqlBoard = DB__secSql();
+$sqlBoard->add("SELECT *");
+$sqlBoard->add("FROM board AS B");
+$sqlBoard->add("WHERE B.id = ?", $article['boardId']);
 
 $board = DB__getRow($sqlBoard);
 
-$sqlMember = "
-SELECT *
-FROM `member` AS M
-WHERE M.id = '${article['memberId']}'
-";
+
+$sqlMember = DB__secSql();
+$sqlMember->add("SELECT *");
+$sqlMember->add("FROM `member` AS M");
+$sqlMember->add("WHERE M.id = ?", $article['memberId']);
 
 $member = DB__getRow($sqlMember);
 
 
-$sqlReplies = "
-SELECT *
-FROM reply AS R
-WHERE R.articleId = '${article['id']}'
-ORDER BY R.id DESC
-";
+$sqlReplies = DB__secSql();
+$sqlReplies->add("SELECT *");
+$sqlReplies->add("FROM reply AS R");
+$sqlReplies->add("WHERE R.articleId = ?", $article['id']);
+$sqlReplies->add("ORDER BY R.id DESC");
 
 $replies = DB__getRows($sqlReplies);
 
@@ -48,21 +46,21 @@ if( !isset($_SESSION['loginedMemberId']) ){
 
 $loginedMemberId = $_SESSION['loginedMemberId'];
 
-$sqlLogined = "
-SELECT *
-FROM `member` AS M
-WHERE M.id = '$loginedMemberId'
-";
 
-$loginedMember = DB__getRow($sqlLogined);
+// $sqlLogined = DB__secSql();
+// $sqlLogined->add("SELECT *");
+// $sqlLogined->add("FROM `member` AS M");
+// $sqlLogined->add("WHERE M.id = ?", $loginedMemberId);
 
-$sqlIncreaseHit = "
-UPDATE article
-SET hit = hit + 1
-WHERE id = '$id'
-";
+// $loginedMember = DB__getRow($sqlLogined);
 
-mysqli_query($dbConn, $sqlIncreaseHit);
+
+$sqlIncreaseHit = DB__secSql();
+$sqlIncreaseHit->add("UPDATE article");
+$sqlIncreaseHit->add("SET hit = hit + 1");
+$sqlIncreaseHit->add("WHERE id = ?", $id);
+
+DB__update($sqlIncreaseHit);
 
 ?>
 
@@ -115,7 +113,7 @@ $pageTitle = "게시물 상세, $id 번 게시물";
     <span>댓글쓰기</span><br>
     <form action="../reply/doWrite.php">
       <input type="hidden" name="articleId" value="<?=$article['id']?>">
-      <input type="hidden" name="memberId" value="<?=$loginedMember['id']?>">
+      <input type="hidden" name="memberId" value="<?=$loginedMemberid?>">
       <textarea placeholder="댓글을 써주세요." name="body"></textarea>
       <input type="submit" value="등록">
     </form>
@@ -124,15 +122,12 @@ $pageTitle = "게시물 상세, $id 번 게시물";
   <hr>
   <?php foreach($replies as $reply) {?>
     <?php
-      $sqlWriter = "
-      SELECT *
-      FROM `member` AS M
-      WHERE M.id = ${reply['memberId']}
-      ";
+      $sqlWriter = DB__secSql();
+      $sqlWriter->add("SELECT *");
+      $sqlWriter->add("FROM 'member' AS M");
+      $sqlWriter->add("WHERE M.id = ?", $reply['memberId']);
 
-      $rsWriter = mysqli_query($dbConn, $sqlWriter);
-
-      $writer = mysqli_fetch_assoc($rsWriter);
+      $writer = DB__getRow($sqlWriter);
     ?>
     <span class="replyWriter"><?=$writer['nickName']?></span> &ensp;
     <?=$reply['regDate']?> &ensp;

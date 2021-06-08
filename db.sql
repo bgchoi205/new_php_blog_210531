@@ -11,7 +11,7 @@ CREATE TABLE article(
   regDate DATETIME NOT NULL,
   updateDate DATETIME NOT NULL,
   title VARCHAR(20) NOT NULL,
-  `body` TEXT NOT NULL
+  `body` TEXT NOT NULL,
   hit INT(10) UNSIGNED NOT NULL
 );
 

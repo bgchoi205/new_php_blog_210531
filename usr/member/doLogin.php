@@ -34,7 +34,7 @@ $sql->add("FROM `member` AS M");
 $sql->add("WHERE M.loginId = ?", $loginId);
 $sql->add("AND M.loginPw = ?", $loginPw);
 
-$member = DB__getRow2($sql);
+$member = DB__getRow($sql);
 
 if( empty($member) ){
   jsHistoryBackExit("아이디 혹은 비밀번호가 틀립니다. 다시 확인해주세요.");

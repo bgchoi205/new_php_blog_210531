@@ -4,8 +4,14 @@ class DB__SecSql{
   private string $templateStr = ""; # 초기화
   private array $params = [];
 
-  public function __toString(): string{
+  public function __toString(): string
+  {
+    $str = '[';
+    $str .= 'SQL=(' . $this->getTemplate() . ')';
+    $str .= ', PARAMS=(' . implode(',', $this->getParams()) . ')';
+    $str .= ']';
     
+    return $str;
   }
 
   public function add(string $sqlBit, string $param = null){
@@ -17,7 +23,7 @@ class DB__SecSql{
   }
 
   public function getTemplate() : string{
-    return $this -> templateStr;
+    return trim($this -> templateStr);
   }
 
   public function getForBindParam1stArg() : string{
@@ -36,49 +42,63 @@ class DB__SecSql{
     return $this->params;
   }
 
+  public function getParamsCount(): int {
+    return count($this->params);
+  }
+
 }
 
 function DB__secSql(){
-  // $stmt = $dbConn->prepare($sql);
-  // $stmt -> bind_param("ss", $loginId, $loginPw);
-  // $stmt -> execute();
-  // $rs = $stmt->get_result();
-
   return new DB__SecSql();
 }
 
-function DB__getRow2(DB__SecSql $sql){
+function DB__getStmtFromSecSql(DB__SecSql $sql): mysqli_stmt {
   global $dbConn;
   $stmt = $dbConn->prepare($sql->getTemplate());
-  $stmt->bind_param($sql -> getForBindParam1stArg(), ...$sql->getParams()); # getForBindParam() 으로 "ss"처럼 타입, 그리고 몇개 들어갈지 구하기
-  $stmt->execute();
-  $rs = $stmt->get_result();
+  if( $sql->getParamsCount() ){
+    $stmt->bind_param($sql -> getForBindParam1stArg(), ...$sql->getParams()); # getForBindParam() 으로 "ss"처럼 타입, 그리고 몇개 들어갈지 구하기
+  }
   
-  return $rs->fetch_assoc();;
+  return $stmt;
 }
 
-
-function DB__getRow($sql){
-  global $dbConn;
-
-  $rs = mysqli_query($dbConn, $sql);
-  $row = mysqli_fetch_assoc($rs);
-
-  return $row;
+function DB__getRow(DB__SecSql $sql){
+  $stmt = DB__getStmtFromSecSql($sql);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  
+  return $result->fetch_assoc();
 }
 
-function DB__getRows($sql){
-  global $dbConn;
-
-  $rs = mysqli_query($dbConn, $sql);
+function DB__getRows(DB__SecSql $sql){
+  $stmt = DB__getStmtFromSecSql($sql);
+  $stmt->execute();
+  $result = $stmt->get_result();
   $rows = [];
 
-  while($row = mysqli_fetch_assoc($rs)){
+  while($row = $result->fetch_assoc()){
     $rows[] = $row;
   }
 
   return $rows;
 }
+
+function DB__execute(DB__SecSql $sql){
+  global $dbConn;
+  $stmt = DB__getStmtFromSecSql($sql);
+  $stmt->execute();
+}
+
+function DB__insert(DB__SecSql $sql){
+  global $dbConn;
+  DB__execute($sql);
+  return mysqli_insert_id($dbConn);
+}
+
+function DB__update(DB__SecSql $sql){
+  DB__execute($sql);
+}
+
 
 function jsAlert($msg){
   echo "<script>";
