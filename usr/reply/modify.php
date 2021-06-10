@@ -12,11 +12,10 @@ if( !isset( $_GET['id'] ) ) {
 
 $id = intval($_GET['id']);
 
-$sqlReply = "
-SELECT *
-FROM reply AS R
-WHERE R.id = '$id'
-";
+$sqlReply = DB__secSql();
+$sqlReply->add("SELECT *");
+$sqlReply->add("FROM reply AS R");
+$sqlReply->add("WHERE R.id = ?", $id);
 
 $reply = DB__getRow($sqlReply);
 

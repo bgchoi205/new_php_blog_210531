@@ -12,11 +12,10 @@ if( !isset( $_GET['memberId'] ) ) {
 
 $memberId = intval($_GET['memberId']);
 
-$sqlMember = "
-SELECT *
-FROM `member` AS M
-WHERE M.id = '$memberId'
-";
+$sqlMember = DB__secSql();
+$sqlMember->add("SELECT *");
+$sqlMember->add("FROM `member` AS M");
+$sqlMember->add("WHERE M.id = ?", $memberId);
 
 $member = DB__getRow($sqlMember);
 

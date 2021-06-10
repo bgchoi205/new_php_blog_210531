@@ -112,8 +112,8 @@ $pageTitle = "게시물 상세, $id 번 게시물";
   <div>
     <span>댓글쓰기</span><br>
     <form action="../reply/doWrite.php">
-      <input type="hidden" name="articleId" value="<?=$article['id']?>">
-      <input type="hidden" name="memberId" value="<?=$loginedMemberid?>">
+      <input type="hidden" name="articleId" value="<?=$id?>">
+      <input type="hidden" name="memberId" value="<?=$loginedMemberId?>">
       <textarea placeholder="댓글을 써주세요." name="body"></textarea>
       <input type="submit" value="등록">
     </form>

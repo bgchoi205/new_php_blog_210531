@@ -55,6 +55,7 @@ function DB__secSql(){
 function DB__getStmtFromSecSql(DB__SecSql $sql): mysqli_stmt {
   global $dbConn;
   $stmt = $dbConn->prepare($sql->getTemplate());
+  
   if( $sql->getParamsCount() ){
     $stmt->bind_param($sql -> getForBindParam1stArg(), ...$sql->getParams()); # getForBindParam() 으로 "ss"처럼 타입, 그리고 몇개 들어갈지 구하기
   }

@@ -13,11 +13,10 @@ if( !isset( $_GET['id'] ) ) {
 
 $id = intval($_GET['id']);
 
-$sql = "
-SELECT *
-FROM reply AS R
-WHERE R.id = '$id'
-";
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM reply AS R");
+$sql->add("WHERE R.id = ?", $id);
 
 $reply = DB__getRow($sql);
 
@@ -31,12 +30,11 @@ $url = "../article/detail.php?id=${reply['articleId']}";
 
 $msg = "댓글 삭제 완료";
 
-$sqlDel = "
-DELETE FROM reply
-WHERE id = '$id'
-";
+$sqlDel = DB__secSql();
+$sqlDel->add("DELETE FROM reply");
+$sqlDel->add("WHERE id = ?", $id);
 
-mysqli_query($dbConn, $sqlDel);
+DB__execute($sqlDel);
 
 
 

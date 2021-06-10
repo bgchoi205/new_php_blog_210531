@@ -4,11 +4,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/webInit.php';
 
 $pageTitle = "게시판 리스트";
 
-$sql = "
-SELECT *
-FROM board AS B
-ORDER BY B.id DESC
-";
+
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM board AS B");
+$sql->add("ORDER BY B.id DESC");
 
 $boards = DB__getRows($sql);
 

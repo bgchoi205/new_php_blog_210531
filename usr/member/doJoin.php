@@ -28,11 +28,11 @@ $name = $_GET['name'];
 $nickName = $_GET['nickName'];
 $email = $_GET['email'];
 
-$sqlMember = "
-SELECT *
-FROM `member` AS M
-WHERE M.loginId = '${loginId}'
-";
+
+$sqlMember = DB__secSql();
+$sqlMember->add("SELECT *");
+$sqlMember->add("FROM `member` AS M");
+$sqlMember->add("WHERE M.loginId = ?", $loginId);
 
 $member = DB__getRow($sqlMember);
 
@@ -40,12 +40,12 @@ if( !empty($member) ){
   jsHistoryBackExit("사용중인 아이디입니다.");
 }
 
-$sqlMemberByNameEmail = "
-SELECT *
-FROM `member` AS M
-WHERE M.name = '${name}'
-AND M.email = '${email}'
-";
+
+$sqlMemberByNameEmail = DB__secSql();
+$sqlMemberByNameEmail->add("SELECT *");
+$sqlMemberByNameEmail->add("FROM `member` AS M");
+$sqlMemberByNameEmail->add("WHERE M.name = ?", $name);
+$sqlMemberByNameEmail->add("AND M.email = ?", $email);
 
 $memberByNameEmail = DB__getRow($sqlMemberByNameEmail);
 
@@ -53,19 +53,19 @@ if( !empty($memberByNameEmail) ){
   jsHistoryBackExit("이미 등록된 회원입니다.");
 }
 
-$sql = "
-INSERT INTO `member`
-SET regDate = NOW(),
-updateDate = NOW(),
-loginId = '$loginId',
-loginPw = '$loginPw',
-`name` = '$name',
-nickName = '$nickName',
-email = '$email',
-delStatus = 0
-";
 
-mysqli_query($dbConn, $sql);
+
+$sql = DB__secSql();
+$sql->add("INSERT INTO `member`");
+$sql->add("SET regDate = NOW()");
+$sql->add(",updateDate = NOW()");
+$sql->add(",loginId = ?", $loginId);
+$sql->add(",loginPw = ?", $loginPw);
+$sql->add(",`name` = ?", $name);
+$sql->add(",nickName = ?", $nickName);
+$sql->add(",email = ?", $email);
+
+DB__execute($sql);
 
 
 

@@ -13,11 +13,10 @@ if( !isset( $_GET['body'] ) ) {
 $id = intval($_GET['id']);
 $body = $_GET['body'];
 
-$sqlReply = "
-SELECT *
-FROM reply
-WHERE id = '$id'
-";
+$sqlReply = DB__secSql();
+$sqlReply->add("SELECT *");
+$sqlReply->add("FROM reply AS R");
+$sqlReply->add("WHERE R.id = ?", $id);
 
 $reply = DB__getRow($sqlReply);
 
@@ -27,14 +26,13 @@ if($reply['memberId'] != $memberId){
   jsHistoryBackExit("권한이 없습니다.");
 }
 
-$sql = "
-UPDATE reply
-SET updateDate = NOW(),
-`body` = '$body'
-WHERE id = '$id'
-";
+$sql = DB__secSql();
+$sql->add("UPDATE reply");
+$sql->add("SET updateDate = NOW()");
+$sql->add(",`body` = ?", $body);
+$sql->add("WHERE id = ?", $id);
 
-mysqli_query($dbConn, $sql);
+DB__execute($sql);
 
 
 $url = "../article/detail.php?id=${reply['articleId']}";

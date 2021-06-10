@@ -29,18 +29,16 @@ $nickName = $_GET['nickName'];
 $email = $_GET['email'];
 
 
+$sql = DB__secSql();
+$sql->add("UPDATE `member`");
+$sql->add("SET updateDate = NOW()");
+$sql->add(",loginPw = ?", $loginPw);
+$sql->add(",`name` = ?", $name);
+$sql->add(",nickName = ?", $nickName);
+$sql->add(",email = ?", $email);
+$sql->add("WHERE id = ?", $id);
 
-$sql = "
-UPDATE `member`
-SET updateDate = NOW(),
-loginPw = '$loginPw',
-`name` = '$name',
-nickName = '$nickName',
-email = '$email'
-WHERE id = $id
-";
-
-mysqli_query($dbConn, $sql);
+DB__execute($sql);
 
 
 

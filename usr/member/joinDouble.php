@@ -8,14 +8,14 @@ if( !isset( $_GET['loginId'] ) ) {
 
 $loginId = $_GET['loginId']; //get 또는 post받은 데이터
 
-$sql="
-SELECT * 
-FROM `member` AS M 
-WHERE M.loginId = '$loginId'
-";
 
-$result=mysqli_query($dbConn,$sql);
-$member=mysqli_fetch_assoc($result);
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM `member` AS M");
+$sql->add("WHERE M.loginId = ?" ,$loginId);
+
+$member=DB__getRow($sql);
+
 $returnStr="";
 
 if($member == null){

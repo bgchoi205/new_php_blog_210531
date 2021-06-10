@@ -22,16 +22,15 @@ $articleId = intval($_GET['articleId']);
 $memberId = intval($_GET['memberId']);
 $body = $_GET['body'];
 
-$sql = "
-INSERT INTO reply
-SET regDate = NOW(),
-updateDate = NOW(),
-articleId = '$articleId',
-memberId = '$memberId',
-`body` = '$body';
-";
+$sql = DB__secSql();
+$sql->add("INSERT INTO reply");
+$sql->add("SET regDate = NOW()");
+$sql->add(",updateDate = NOW()");
+$sql->add(",articleId = ?", $articleId);
+$sql->add(",memberId = ?", $memberId);
+$sql->add(",`body` = ?", $body);
 
-mysqli_query($dbConn, $sql);
+DB__execute($sql);
 
 
 $url = "../article/detail.php?id=${articleId}";

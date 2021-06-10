@@ -25,15 +25,12 @@ $loginId = $_GET['loginId'];
 $loginPw = $_GET['loginPw'];
 
 
-$sql = "
-SELECT *
-FROM `member` AS M
-WHERE M.id = '$id'
-AND M.loginId = '$loginId'
-AND M.loginPw = '$loginPw'
-";
-
-
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM `member` AS M");
+$sql->add("WHERE M.id = ?", $id);
+$sql->add("AND M.loginId = ?", $loginId);
+$sql->add("AND M.loginPw = ?", $loginPw);
 
 $member = DB__getRow($sql);
 
@@ -41,13 +38,13 @@ if( empty($member) ){
   jsHistoryBackExit("아이디 혹은 비밀번호가 틀립니다. 다시 확인해주세요.");
 }
 
-$sqlDel = "
-UPDATE `member`
-SET delStatus = '1'
-WHERE id = '$id'
-";
 
-mysqli_query($dbConn, $sqlDel);
+$sqlDel = DB__secSql();
+$sqlDel->add("UPDATE `member`");
+$sqlDel->add("SET delStatus = '1'");
+$sqlDel->add("WHERE id = ?", $id);
+
+DB__execute($sqlDel);
 
 session_unset();
 

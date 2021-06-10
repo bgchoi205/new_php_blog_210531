@@ -8,12 +8,10 @@ if( !isset($_SESSION['loginedMemberId']) ){
 
 $memberId = $_SESSION['loginedMemberId'];
 
-$sql = "
-SELECT *
-FROM `member` AS M
-WHERE M.id = '$memberId'
-";
-
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM `member` AS M");
+$sql->add("WHERE M.id = ?", $memberId);
 
 $member = DB__getRow($sql);
 
