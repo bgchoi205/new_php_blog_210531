@@ -27,17 +27,18 @@ $boardId = intval($_GET['boardId']);
 $title = $_GET['title'];
 $body = $_GET['body'];
 
-$sql = "
-INSERT INTO article
-SET memberId = '$memberId',
-boardId = '$boardId',
-regDate = NOW(),
-updateDate = NOW(),
-title = '$title',
-`body` = '$body';
-";
 
-mysqli_query($dbConn, $sql);
+$sql = DB__secSql();
+$sql->add("INSERT INTO article");
+$sql->add("SET memberId = ?", $memberId);
+$sql->add(",boardId = ?", $boardId);
+$sql->add(",regDate = NOW()");
+$sql->add(",updateDate = NOW()");
+$sql->add(",title = ?", $title);
+$sql->add(",`body` = ?", $body);
+
+
+DB__execute($sql);
 
 $id = mysqli_insert_id($dbConn);
 

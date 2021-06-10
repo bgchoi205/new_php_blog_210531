@@ -9,29 +9,27 @@ if( !isset( $_GET['boardId'] ) ) {
 
 $boardId = intval($_GET['boardId']);
 
-$sql = "
-SELECT *
-FROM article AS A
-WHERE A.boardId = '$boardId'
-ORDER BY A.id DESC
-";
+
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM article AS A");
+$sql->add("WHERE A.boardId = ?", $boardId);
+$sql->add("ORDER BY A.id DESC");
 
 $articles = DB__getRows($sql);
 
 
-$sqlBoardById = "
-SELECT *
-FROM board AS B
-WHERE B.id = '$boardId'
-";
+$sqlBoardById = DB__secSql();
+$sqlBoardById->add("SELECT *");
+$sqlBoardById->add("FROM board AS B");
+$sqlBoardById->add("WHERE B.id = ?", $boardId);
 
 $boardById = DB__getRow($sqlBoardById);
 
-$sqlBoard2 = "
-SELECT *
-FROM board AS B
-ORDER BY B.id DESC
-";
+$sqlBoard2 = DB__secSql();
+$sqlBoard2->add("SELECT *");
+$sqlBoard2->add("FROM board AS B");
+$sqlBoard2->add("ORDER BY B.id DESC");
 
 $boards = DB__getRows($sqlBoard2);
 

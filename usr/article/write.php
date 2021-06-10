@@ -14,6 +14,11 @@ FROM board AS B
 ORDER BY B.id DESC
 ";
 
+$sqlBoard2 = DB__secSql();
+$sqlBoard2->add("SELECT *");
+$sqlBoard2->add("FROM board AS B");
+$sqlBoard2->add("ORDER BY B.id DESC");
+
 $boards = DB__getRows($sqlBoard2);
 
 

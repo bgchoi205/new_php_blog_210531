@@ -24,15 +24,15 @@ $title = $_GET['title'];
 
 $body = $_GET['body'];
 
-$sql = "
-UPDATE article
-SET updateDate = NOW(),
-title = '$title',
-`body` = '$body'
-WHERE id = '$id';
-";
 
-mysqli_query($dbConn, $sql);
+$sql = DB__secSql();
+$sql->add("UPDATE article");
+$sql->add("SET updateDate = NOW()");
+$sql->add(",title = ?", $title);
+$sql->add(",`body` = ?", $body);
+$sql->add("WHERE id = ?", $id);
+
+DB__execute($sql);
 
 $url = "detail.php?id=${id}";
 

@@ -13,11 +13,10 @@ if( !isset( $_GET['id'] ) ) {
 
 $id = intval($_GET['id']);
 
-$sql = "
-SELECT *
-FROM article AS A
-WHERE A.id = '$id'
-";
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM article AS A");
+$sql->add("WHERE A.id = ?", $id);
 
 $article = DB__getRow($sql);
 
@@ -27,12 +26,12 @@ if($article['memberId'] != $memberId){
   jsHistoryBackExit("권한이 없습니다.");
 }
 
-$sqlDel = "
-DELETE FROM article
-WHERE id = '$id'
-";
 
-mysqli_query($dbConn, $sqlDel);
+$sqlDel = DB__secSql();
+$sqlDel->add("DELETE FROM article");
+$sqlDel->add("WHERE id = ?", $id);
+
+DB__execute($sqlDel);
 
 $url = "list.php";
 
