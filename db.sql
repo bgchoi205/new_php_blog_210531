@@ -57,7 +57,7 @@ CREATE TABLE `member`(
   `name` VARCHAR(20) NOT NULL,
   nickName VARCHAR(20) NOT NULL,
   email VARCHAR(100) NOT NULL,
-  delStatus boolean not null
+  delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
 );
 
 
@@ -69,8 +69,7 @@ loginId = 'admin1',
 loginPw = 'admin1',
 `name` = '철수',
 nickName = '파이리',
-email = 'fire@abc.com',
-delStatus = 0;
+email = 'fire@abc.com';
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -79,8 +78,7 @@ loginId = 'user1',
 loginPw = 'user1',
 `name` = '영희',
 nickName = '꼬부기',
-email = 'water@abc.com',
-delStatus = false;
+email = 'water@abc.com';
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -89,8 +87,7 @@ loginId = 'user2',
 loginPw = 'user2',
 `name` = '길동',
 nickName = '이상이상',
-email = 'green@abc.com',
-delStatus = 0;
+email = 'green@abc.com';
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -99,8 +96,7 @@ loginId = 'user3',
 loginPw = 'user3',
 `name` = '희동',
 nickName = '구구',
-email = 'gugu@abc.com',
-delStatus = 0;
+email = 'gugu@abc.com';
 
 
 # board table 생성
@@ -133,19 +129,19 @@ updateDate = NOW(),
 
 
 # reply table 생성
-create table reply(
-  id int(10) unsigned not null primary key auto_increment,
+CREATE TABLE reply(
+  id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   regDate DATETIME NOT NULL,
   updateDate DATETIME NOT NULL,
-  articleId int(10) unsigned not null,
+  articleId INT(10) UNSIGNED NOT NULL,
   memberId INT(10) UNSIGNED NOT NULL,
-  `body` text not null
+  `body` TEXT NOT NULL
 );
 
 # test reply 생성
-insert into reply
-set regDate = now(),
-updateDate = now(),
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
 articleId = 1,
 memberId = 2,
 `body` = '가라 피카츄 너로 정했다';
