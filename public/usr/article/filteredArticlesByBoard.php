@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/webInit.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../webInit.php';
 
 if( !isset( $_GET['boardId'] ) ) {
   jsHistoryBackExit("게시판번호를 입력해주세요.");
