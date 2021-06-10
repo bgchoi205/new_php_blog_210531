@@ -124,7 +124,7 @@ $pageTitle = "게시물 상세, $id 번 게시물";
     <?php
       $sqlWriter = DB__secSql();
       $sqlWriter->add("SELECT *");
-      $sqlWriter->add("FROM 'member' AS M");
+      $sqlWriter->add("FROM `member` AS M");
       $sqlWriter->add("WHERE M.id = ?", $reply['memberId']);
 
       $writer = DB__getRow($sqlWriter);
