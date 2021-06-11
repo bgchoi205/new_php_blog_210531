@@ -24,8 +24,8 @@ if($member == null){
 else{
   $returnStr="사용할 수 없는 아이디입니다.";
 }
-mysqli_free_result($result);
-mysqli_close($dbConn);
+// mysqli_free_result($result);
+// mysqli_close($dbConn);
 echo $returnStr;
 
 
